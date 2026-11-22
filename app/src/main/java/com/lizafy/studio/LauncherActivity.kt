@@ -185,7 +185,7 @@ fun HomeRoot(tick: Int, drawerOpen: Boolean, dark: Boolean, mode: Int, onMode: (
                 },
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            Surface(shape = RoundedCornerShape(28.dp), color = panel, modifier = Modifier.fillMaxWidth()) {
+            Surface(shape = RoundedCornerShape(28.dp), color = panel, contentColor = MaterialTheme.colorScheme.onSurface, modifier = Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(18.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         if (name.isBlank()) hello else "$hello, $name", fontSize = 22.sp, fontFamily = Fonts.deco,
@@ -193,14 +193,14 @@ fun HomeRoot(tick: Int, drawerOpen: Boolean, dark: Boolean, mode: Int, onMode: (
                         modifier = Modifier.combinedClickableLong { editName = true },
                     )
                     Text(now.format(DateTimeFormatter.ofPattern("h:mm")), fontSize = 64.sp, fontFamily = Fonts.heading, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.primary)
-                    Text(now.format(DateTimeFormatter.ofPattern("EEEE, d MMMM")), fontSize = 16.sp, fontFamily = Fonts.hand)
+                    Text(now.format(DateTimeFormatter.ofPattern("EEEE, d MMMM")), fontSize = 17.sp, fontFamily = Fonts.hand, color = MaterialTheme.colorScheme.onSurface)
                     TextButton(onClick = { onMode((mode + 1) % 3) }) { Text("Theme: " + listOf("Auto", "Light", "Dark")[mode], fontSize = 12.sp) }
                 }
             }
-            Surface(shape = RoundedCornerShape(28.dp), color = panel, modifier = Modifier.fillMaxWidth()) {
+            Surface(shape = RoundedCornerShape(28.dp), color = panel, contentColor = MaterialTheme.colorScheme.onSurface, modifier = Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     if (pinned.isEmpty()) {
-                        Text("Swipe up for all apps. Long-press an app to pin it here.", modifier = Modifier.padding(12.dp), textAlign = TextAlign.Center)
+                        Text("Swipe up for all apps. Long-press an app to pin it here.", color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.padding(12.dp), textAlign = TextAlign.Center)
                     }
                     pinned.chunked(4).forEach { row ->
                         Row(Modifier.fillMaxWidth()) {
@@ -216,10 +216,10 @@ fun HomeRoot(tick: Int, drawerOpen: Boolean, dark: Boolean, mode: Int, onMode: (
             }
             Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Surface(shape = RoundedCornerShape(20.dp), color = panel, modifier = Modifier.clickable { setDrawer(true) }) {
+                    Surface(shape = RoundedCornerShape(20.dp), color = panel, contentColor = MaterialTheme.colorScheme.onSurface, modifier = Modifier.clickable { setDrawer(true) }) {
                         Text("Swipe up or tap for all apps", Modifier.padding(horizontal = 16.dp, vertical = 8.dp), color = MaterialTheme.colorScheme.primary, fontFamily = Fonts.hand, fontSize = 15.sp)
                     }
-                    Surface(shape = RoundedCornerShape(30.dp), color = panel, modifier = Modifier.fillMaxWidth()) {
+                    Surface(shape = RoundedCornerShape(30.dp), color = panel, contentColor = MaterialTheme.colorScheme.onSurface, modifier = Modifier.fillMaxWidth()) {
                         Row(Modifier.padding(8.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
                             dock.forEach { a -> AppIcon(a, th, false, { launch(ctx, a) }, { menu = a }) }
                         }
@@ -295,6 +295,6 @@ fun AppIcon(app: LApp, th: String, showLabel: Boolean, onClick: () -> Unit, onLo
         } else {
             DoodleLetterIcon(app.label, app.pkg, th == "dark")
         }
-        if (showLabel) Text(app.label, fontSize = 11.sp, maxLines = 1, textAlign = TextAlign.Center, modifier = Modifier.padding(top = 2.dp))
+        if (showLabel) Text(app.label, fontSize = 11.sp, maxLines = 1, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.padding(top = 2.dp))
     }
 }
