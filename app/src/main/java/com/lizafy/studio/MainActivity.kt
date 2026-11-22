@@ -93,8 +93,8 @@ private val Sage = Color(0xFFB8CBAA)
 private val Charcoal = Color(0xFF35312F)
 
 @Composable
-fun LizafyTheme(content: @Composable () -> Unit) {
-    val scheme = if (isSystemInDarkTheme()) {
+fun LizafyTheme(darkOverride: Boolean? = null, content: @Composable () -> Unit) {
+    val scheme = if (darkOverride ?: isSystemInDarkTheme()) {
         darkColorScheme(
             primary = Color(0xFFF3E6D3), onPrimary = Color(0xFF0C0B0A),
             background = Color(0xFF0C0B0A), surface = Color(0xFF161312),
@@ -113,7 +113,7 @@ fun LizafyTheme(content: @Composable () -> Unit) {
             surfaceVariant = Color(0xFFF1E4D2), onSurfaceVariant = Cocoa,
         )
     }
-    MaterialTheme(colorScheme = scheme, content = content)
+    MaterialTheme(colorScheme = scheme, typography = fontedTypography(), content = content)
 }
 
 // ---------- asset + system helpers ----------
@@ -226,7 +226,7 @@ fun LizafyApp() {
 
 @Composable
 fun Heading(text: String) =
-    Text(text, fontSize = 26.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+    Text(text, fontSize = 28.sp, fontFamily = Fonts.heading, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.primary)
 
 // ---------- Home: looks ----------
 data class Look(val name: String, val home: String, val lock: String)

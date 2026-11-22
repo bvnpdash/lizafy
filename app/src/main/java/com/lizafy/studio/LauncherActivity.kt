@@ -13,6 +13,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -71,7 +72,14 @@ class LauncherActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent { LizafyTheme { HomeRoot(tick, drawer) { drawer = it } } }
+        setContent {
+            val prefs = remember { getSharedPreferences("lizafy", MODE_PRIVATE) }
+            var mode by remember { mutableIntStateOf(prefs.getInt("mode", 0)) }
+            val dark = when (mode) { 1 -> false; 2 -> true; else -> isSystemInDarkTheme() }
+            LizafyTheme(dark) {
+                HomeRoot(tick, drawer, dark, mode, { mode = it; prefs.edit().putInt("mode", it).apply() }) { drawer = it }
+            }
+        }
     }
 
     override fun onResume() {
@@ -105,9 +113,9 @@ private fun loadApps(ctx: Context, map: Map<String, String>): List<LApp> {
     val q = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
     return pm.queryIntentActivities(q, 0).map { ri ->
         val pkg = ri.activityInfo.packageName
-        val id = map[pkg]
-        val icon = if (id == null) try { ri.loadIcon(pm).toBitmap(128, 128).asImageBitmap() } catch (e: Exception) { null } else null
-        LApp(ri.loadLabel(pm).toString(), pkg, ComponentName(pkg, ri.activityInfo.name), id, icon)
+        val label = ri.loadLabel(pm).toString()
+        val id = map[pkg] ?: guessId(label)
+        LApp(label, pkg, ComponentName(pkg, ri.activityInfo.name), id, null)
     }.sortedBy { it.label.lowercase() }
 }
 
@@ -125,9 +133,9 @@ private fun launch(ctx: Context, app: LApp) {
 private val DOCK_IDS = listOf("phone", "messages", "camera", "gallery")
 
 @Composable
-fun HomeRoot(tick: Int, drawerOpen: Boolean, setDrawer: (Boolean) -> Unit) {
+fun HomeRoot(tick: Int, drawerOpen: Boolean, dark: Boolean, mode: Int, onMode: (Int) -> Unit, setDrawer: (Boolean) -> Unit) {
     val ctx = LocalContext.current
-    val th = if (isSystemInDarkTheme()) "dark" else "light"
+    val th = if (dark) "dark" else "light"
     val map = remember { doodleMap(ctx) }
     val apps by produceState(emptyList<LApp>(), tick) { value = withContext(Dispatchers.IO) { loadApps(ctx, map) } }
     val prefs = remember { ctx.getSharedPreferences("lizafy", Context.MODE_PRIVATE) }
@@ -176,12 +184,13 @@ fun HomeRoot(tick: Int, drawerOpen: Boolean, setDrawer: (Boolean) -> Unit) {
             Surface(shape = RoundedCornerShape(28.dp), color = panel, modifier = Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(18.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        if (name.isBlank()) hello else "$hello, $name", fontSize = 16.sp,
+                        if (name.isBlank()) hello else "$hello, $name", fontSize = 22.sp, fontFamily = Fonts.deco,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.combinedClickableLong { editName = true },
                     )
-                    Text(now.format(DateTimeFormatter.ofPattern("h:mm")), fontSize = 64.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                    Text(now.format(DateTimeFormatter.ofPattern("EEEE, d MMMM")), fontSize = 16.sp)
+                    Text(now.format(DateTimeFormatter.ofPattern("h:mm")), fontSize = 64.sp, fontFamily = Fonts.heading, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.primary)
+                    Text(now.format(DateTimeFormatter.ofPattern("EEEE, d MMMM")), fontSize = 16.sp, fontFamily = Fonts.hand)
+                    TextButton(onClick = { onMode((mode + 1) % 3) }) { Text("Theme: " + listOf("Auto", "Light", "Dark")[mode], fontSize = 12.sp) }
                 }
             }
             Surface(shape = RoundedCornerShape(28.dp), color = panel, modifier = Modifier.fillMaxWidth()) {
@@ -203,7 +212,9 @@ fun HomeRoot(tick: Int, drawerOpen: Boolean, setDrawer: (Boolean) -> Unit) {
             }
             Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    TextButton(onClick = { setDrawer(true) }) { Text("All apps", color = MaterialTheme.colorScheme.primary) }
+                    Surface(shape = RoundedCornerShape(20.dp), color = panel, modifier = Modifier.clickable { setDrawer(true) }) {
+                        Text("Swipe up or tap for all apps", Modifier.padding(horizontal = 16.dp, vertical = 8.dp), color = MaterialTheme.colorScheme.primary, fontFamily = Fonts.hand, fontSize = 15.sp)
+                    }
                     Surface(shape = RoundedCornerShape(30.dp), color = panel, modifier = Modifier.fillMaxWidth()) {
                         Row(Modifier.padding(8.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
                             dock.forEach { a -> AppIcon(a, th, false, { launch(ctx, a) }, { menu = a }) }
@@ -278,12 +289,7 @@ fun AppIcon(app: LApp, th: String, showLabel: Boolean, onClick: () -> Unit, onLo
         if (app.doodle != null) {
             AssetImage("icons/$th/${app.doodle}.webp", Modifier.size(58.dp), sample = 2)
         } else {
-            Box(
-                Modifier.size(58.dp).clip(RoundedCornerShape(18.dp)).background(MaterialTheme.colorScheme.surfaceVariant),
-                contentAlignment = Alignment.Center,
-            ) {
-                app.icon?.let { Image(it, null, Modifier.size(40.dp)) }
-            }
+            DoodleLetterIcon(app.label, app.pkg, th == "dark")
         }
         if (showLabel) Text(app.label, fontSize = 11.sp, maxLines = 1, textAlign = TextAlign.Center, modifier = Modifier.padding(top = 2.dp))
     }
