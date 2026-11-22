@@ -119,8 +119,11 @@ fun LizafyTheme(content: @Composable () -> Unit) {
 // ---------- asset + system helpers ----------
 fun Context.assetList(dir: String): List<String> = assets.list(dir)?.sorted() ?: emptyList()
 
-fun pretty(file: String): String =
-    file.substringBeforeLast('.').replace("pct", "%").replace('_', ' ').replaceFirstChar { it.uppercase() }
+fun pretty(file: String): String {
+    val raw = file.substringBeforeLast('.')
+    val special = mapOf("chatgpt" to "ChatGPT", "whatsapp" to "WhatsApp", "youtube" to "YouTube", "playstore" to "Play Store", "food" to "Food delivery")
+    return special[raw] ?: raw.replace("pct", "%").replace('_', ' ').replaceFirstChar { it.uppercase() }
+}
 
 private fun decode(ctx: Context, path: String, sample: Int): ImageBitmap? = try {
     val o = BitmapFactory.Options().apply { inSampleSize = sample }

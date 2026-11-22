@@ -13,6 +13,19 @@
         android:label="Lizafy"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lizafy">
+        <activity
+            android:name=".LauncherActivity"
+            android:exported="true"
+            android:label="Lizafy Home"
+            android:launchMode="singleTask"
+            android:stateNotNeeded="true"
+            android:theme="@style/Theme.Lizafy.Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
