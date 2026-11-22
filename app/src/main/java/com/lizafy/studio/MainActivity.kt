@@ -2,6 +2,8 @@ package com.lizafy.studio
 
 import android.app.WallpaperManager
 import android.content.ContentValues
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -321,6 +323,15 @@ fun IconsScreen() {
                             }) { Text(if (next < apps.size) "Add next: ${apps[next].label} (${apps.size - next} left)" else "All added", maxLines = 1) }
                             TextButton(onClick = { next = 0 }) { Text("Start over") }
                         }
+                        OutlinedButton(onClick = {
+                            val q = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
+                            val list = ctx.packageManager.queryIntentActivities(q, 0).joinToString("\n") {
+                                it.activityInfo.packageName + "/" + it.activityInfo.name + " | " + it.loadLabel(ctx.packageManager)
+                            }
+                            (ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
+                                .setPrimaryClip(ClipData.newPlainText("Lizafy apps", list))
+                            toast(ctx, "App list copied")
+                        }) { Text("Copy my app list (for icon pack)", fontSize = 12.sp) }
                     }
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
