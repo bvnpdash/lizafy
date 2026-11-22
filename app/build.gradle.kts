@@ -13,6 +13,14 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("lizafy-debug.keystore")
+            storePassword = "android"
+            keyAlias = "lizafy"
+            keyPassword = "android"
+        }
+    }
     buildTypes { release { isMinifyEnabled = false } }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

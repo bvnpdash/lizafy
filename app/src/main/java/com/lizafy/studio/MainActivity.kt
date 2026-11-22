@@ -10,6 +10,7 @@ import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -256,12 +257,25 @@ fun HomeScreen() {
                     AssetImage(look.home, Modifier.width(64.dp).heightIn(max = 140.dp).clip(RoundedCornerShape(10.dp)), sample = 4)
                     Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
                         Text(look.name, fontWeight = FontWeight.SemiBold)
-                        Text("Sets home and lock wallpaper", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("Sets wallpapers and saves matching Flip Cards", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Button(onClick = {
                         runSet(ctx, scope, look.home, HOME_FLAG, "Home wallpaper")
                         runSet(ctx, scope, look.lock, LOCK_FLAG, "Lock wallpaper")
+                        val cardDir = "flipcards/" + if (look.name == "Midnight Doodles") "dark" else "light"
+                        runSave(ctx, scope, ctx.assetList(cardDir).map { "$cardDir/$it" })
                     }) { Text("Apply") }
+                }
+            }
+        }
+        item {
+            Card(Modifier.fillMaxWidth()) {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Finish setup", fontWeight = FontWeight.SemiBold)
+                    Text("After Apply: add the doodle icons in the Icons tab, then switch dark mode to match the look.", fontSize = 13.sp)
+                    OutlinedButton(onClick = {
+                        ctx.startActivity(Intent(Settings.ACTION_DISPLAY_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    }) { Text("Open display settings") }
                 }
             }
         }
@@ -284,6 +298,8 @@ fun IconsScreen() {
     var dark by remember { mutableStateOf(false) }
     var q by remember { mutableStateOf("") }
     var open by remember { mutableStateOf<String?>(null) }
+    val apps = remember { installedIconApps(ctx) }
+    var next by remember { mutableStateOf(0) }
     val th = if (dark) "dark" else "light"
     val files = remember(th) { ctx.assetList("icons/$th") }.filter { it.contains(q.trim().lowercase().replace(' ', '_')) }
     LazyVerticalGrid(
@@ -294,6 +310,19 @@ fun IconsScreen() {
         item(span = { GridItemSpan(maxLineSpan) }) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Heading("Icons")
+                Card(Modifier.fillMaxWidth()) {
+                    Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text("Put doodle icons on your home screen", fontWeight = FontWeight.SemiBold)
+                        Text("${apps.size} of your installed apps have a doodle icon. Android asks you to confirm each one. Your original icons stay until you remove them.", fontSize = 12.sp)
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Button(enabled = next < apps.size, onClick = {
+                                val ok = pinIcon(ctx, apps[next], th)
+                                if (ok) next++ else toast(ctx, "Your launcher did not accept this shortcut")
+                            }) { Text(if (next < apps.size) "Add next: ${apps[next].label} (${apps.size - next} left)" else "All added", maxLines = 1) }
+                            TextButton(onClick = { next = 0 }) { Text("Start over") }
+                        }
+                    }
+                }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     FilterChip(selected = !dark, onClick = { dark = false }, label = { Text("Light") })
                     FilterChip(selected = dark, onClick = { dark = true }, label = { Text("Dark") })

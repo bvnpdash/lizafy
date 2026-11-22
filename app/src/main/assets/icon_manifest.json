@@ -1,0 +1,912 @@
+{
+  "name": "LIZAFY",
+  "version": "1.0.0",
+  "tagline": "Your Vivo. Your Little Illustrated World.",
+  "note": "Package names for Vivo system apps are from memory and NOT verified on a V50. Check with `adb shell pm list packages` before relying on them.",
+  "icons": [
+    {
+      "id": "phone",
+      "label": "Phone",
+      "category": "system",
+      "packages": [
+        "com.android.contacts",
+        "com.google.android.dialer",
+        "com.android.dialer"
+      ],
+      "files": {
+        "light_png": "icons/light/png/phone.png",
+        "dark_png": "icons/dark/png/phone.png",
+        "light_webp": "icons/light/webp/phone.webp",
+        "dark_webp": "icons/dark/webp/phone.webp",
+        "svg_light": "icons/light/svg/phone.svg",
+        "svg_dark": "icons/dark/svg/phone.svg",
+        "adaptive_fg_light": "icons/adaptive/light/phone_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/phone_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/phone_monochrome.png"
+      }
+    },
+    {
+      "id": "contacts",
+      "label": "Contacts",
+      "category": "system",
+      "packages": [
+        "com.android.contacts",
+        "com.google.android.contacts"
+      ],
+      "files": {
+        "light_png": "icons/light/png/contacts.png",
+        "dark_png": "icons/dark/png/contacts.png",
+        "light_webp": "icons/light/webp/contacts.webp",
+        "dark_webp": "icons/dark/webp/contacts.webp",
+        "svg_light": "icons/light/svg/contacts.svg",
+        "svg_dark": "icons/dark/svg/contacts.svg",
+        "adaptive_fg_light": "icons/adaptive/light/contacts_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/contacts_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/contacts_monochrome.png"
+      }
+    },
+    {
+      "id": "messages",
+      "label": "Messages",
+      "category": "system",
+      "packages": [
+        "com.android.mms",
+        "com.google.android.apps.messaging"
+      ],
+      "files": {
+        "light_png": "icons/light/png/messages.png",
+        "dark_png": "icons/dark/png/messages.png",
+        "light_webp": "icons/light/webp/messages.webp",
+        "dark_webp": "icons/dark/webp/messages.webp",
+        "svg_light": "icons/light/svg/messages.svg",
+        "svg_dark": "icons/dark/svg/messages.svg",
+        "adaptive_fg_light": "icons/adaptive/light/messages_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/messages_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/messages_monochrome.png"
+      }
+    },
+    {
+      "id": "camera",
+      "label": "Camera",
+      "category": "system",
+      "packages": [
+        "com.vivo.camera",
+        "com.android.camera"
+      ],
+      "files": {
+        "light_png": "icons/light/png/camera.png",
+        "dark_png": "icons/dark/png/camera.png",
+        "light_webp": "icons/light/webp/camera.webp",
+        "dark_webp": "icons/dark/webp/camera.webp",
+        "svg_light": "icons/light/svg/camera.svg",
+        "svg_dark": "icons/dark/svg/camera.svg",
+        "adaptive_fg_light": "icons/adaptive/light/camera_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/camera_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/camera_monochrome.png"
+      }
+    },
+    {
+      "id": "gallery",
+      "label": "Gallery",
+      "category": "system",
+      "packages": [
+        "com.vivo.gallery",
+        "com.android.gallery3d",
+        "com.google.android.apps.photos"
+      ],
+      "files": {
+        "light_png": "icons/light/png/gallery.png",
+        "dark_png": "icons/dark/png/gallery.png",
+        "light_webp": "icons/light/webp/gallery.webp",
+        "dark_webp": "icons/dark/webp/gallery.webp",
+        "svg_light": "icons/light/svg/gallery.svg",
+        "svg_dark": "icons/dark/svg/gallery.svg",
+        "adaptive_fg_light": "icons/adaptive/light/gallery_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/gallery_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/gallery_monochrome.png"
+      }
+    },
+    {
+      "id": "settings",
+      "label": "Settings",
+      "category": "system",
+      "packages": [
+        "com.android.settings"
+      ],
+      "files": {
+        "light_png": "icons/light/png/settings.png",
+        "dark_png": "icons/dark/png/settings.png",
+        "light_webp": "icons/light/webp/settings.webp",
+        "dark_webp": "icons/dark/webp/settings.webp",
+        "svg_light": "icons/light/svg/settings.svg",
+        "svg_dark": "icons/dark/svg/settings.svg",
+        "adaptive_fg_light": "icons/adaptive/light/settings_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/settings_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/settings_monochrome.png"
+      }
+    },
+    {
+      "id": "calendar",
+      "label": "Calendar",
+      "category": "system",
+      "packages": [
+        "com.bbk.calendar",
+        "com.android.calendar",
+        "com.google.android.calendar"
+      ],
+      "files": {
+        "light_png": "icons/light/png/calendar.png",
+        "dark_png": "icons/dark/png/calendar.png",
+        "light_webp": "icons/light/webp/calendar.webp",
+        "dark_webp": "icons/dark/webp/calendar.webp",
+        "svg_light": "icons/light/svg/calendar.svg",
+        "svg_dark": "icons/dark/svg/calendar.svg",
+        "adaptive_fg_light": "icons/adaptive/light/calendar_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/calendar_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/calendar_monochrome.png"
+      }
+    },
+    {
+      "id": "clock",
+      "label": "Clock",
+      "category": "system",
+      "packages": [
+        "com.android.BBKClock",
+        "com.google.android.deskclock"
+      ],
+      "files": {
+        "light_png": "icons/light/png/clock.png",
+        "dark_png": "icons/dark/png/clock.png",
+        "light_webp": "icons/light/webp/clock.webp",
+        "dark_webp": "icons/dark/webp/clock.webp",
+        "svg_light": "icons/light/svg/clock.svg",
+        "svg_dark": "icons/dark/svg/clock.svg",
+        "adaptive_fg_light": "icons/adaptive/light/clock_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/clock_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/clock_monochrome.png"
+      }
+    },
+    {
+      "id": "calculator",
+      "label": "Calculator",
+      "category": "system",
+      "packages": [
+        "com.android.bbkcalculator",
+        "com.google.android.calculator"
+      ],
+      "files": {
+        "light_png": "icons/light/png/calculator.png",
+        "dark_png": "icons/dark/png/calculator.png",
+        "light_webp": "icons/light/webp/calculator.webp",
+        "dark_webp": "icons/dark/webp/calculator.webp",
+        "svg_light": "icons/light/svg/calculator.svg",
+        "svg_dark": "icons/dark/svg/calculator.svg",
+        "adaptive_fg_light": "icons/adaptive/light/calculator_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/calculator_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/calculator_monochrome.png"
+      }
+    },
+    {
+      "id": "files",
+      "label": "Files",
+      "category": "system",
+      "packages": [
+        "com.android.filemanager",
+        "com.google.android.apps.nbu.files"
+      ],
+      "files": {
+        "light_png": "icons/light/png/files.png",
+        "dark_png": "icons/dark/png/files.png",
+        "light_webp": "icons/light/webp/files.webp",
+        "dark_webp": "icons/dark/webp/files.webp",
+        "svg_light": "icons/light/svg/files.svg",
+        "svg_dark": "icons/dark/svg/files.svg",
+        "adaptive_fg_light": "icons/adaptive/light/files_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/files_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/files_monochrome.png"
+      }
+    },
+    {
+      "id": "browser",
+      "label": "Browser",
+      "category": "system",
+      "packages": [
+        "com.vivo.browser"
+      ],
+      "files": {
+        "light_png": "icons/light/png/browser.png",
+        "dark_png": "icons/dark/png/browser.png",
+        "light_webp": "icons/light/webp/browser.webp",
+        "dark_webp": "icons/dark/webp/browser.webp",
+        "svg_light": "icons/light/svg/browser.svg",
+        "svg_dark": "icons/dark/svg/browser.svg",
+        "adaptive_fg_light": "icons/adaptive/light/browser_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/browser_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/browser_monochrome.png"
+      }
+    },
+    {
+      "id": "downloads",
+      "label": "Downloads",
+      "category": "system",
+      "packages": [
+        "com.android.providers.downloads.ui"
+      ],
+      "files": {
+        "light_png": "icons/light/png/downloads.png",
+        "dark_png": "icons/dark/png/downloads.png",
+        "light_webp": "icons/light/webp/downloads.webp",
+        "dark_webp": "icons/dark/webp/downloads.webp",
+        "svg_light": "icons/light/svg/downloads.svg",
+        "svg_dark": "icons/dark/svg/downloads.svg",
+        "adaptive_fg_light": "icons/adaptive/light/downloads_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/downloads_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/downloads_monochrome.png"
+      }
+    },
+    {
+      "id": "music",
+      "label": "Music",
+      "category": "system",
+      "packages": [
+        "com.android.bbkmusic",
+        "com.google.android.apps.youtube.music"
+      ],
+      "files": {
+        "light_png": "icons/light/png/music.png",
+        "dark_png": "icons/dark/png/music.png",
+        "light_webp": "icons/light/webp/music.webp",
+        "dark_webp": "icons/dark/webp/music.webp",
+        "svg_light": "icons/light/svg/music.svg",
+        "svg_dark": "icons/dark/svg/music.svg",
+        "adaptive_fg_light": "icons/adaptive/light/music_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/music_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/music_monochrome.png"
+      }
+    },
+    {
+      "id": "video",
+      "label": "Video",
+      "category": "system",
+      "packages": [
+        "com.vivo.video",
+        "com.android.VideoPlayer"
+      ],
+      "files": {
+        "light_png": "icons/light/png/video.png",
+        "dark_png": "icons/dark/png/video.png",
+        "light_webp": "icons/light/webp/video.webp",
+        "dark_webp": "icons/dark/webp/video.webp",
+        "svg_light": "icons/light/svg/video.svg",
+        "svg_dark": "icons/dark/svg/video.svg",
+        "adaptive_fg_light": "icons/adaptive/light/video_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/video_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/video_monochrome.png"
+      }
+    },
+    {
+      "id": "playstore",
+      "label": "Play Store",
+      "category": "system",
+      "packages": [
+        "com.android.vending"
+      ],
+      "files": {
+        "light_png": "icons/light/png/playstore.png",
+        "dark_png": "icons/dark/png/playstore.png",
+        "light_webp": "icons/light/webp/playstore.webp",
+        "dark_webp": "icons/dark/webp/playstore.webp",
+        "svg_light": "icons/light/svg/playstore.svg",
+        "svg_dark": "icons/dark/svg/playstore.svg",
+        "adaptive_fg_light": "icons/adaptive/light/playstore_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/playstore_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/playstore_monochrome.png"
+      }
+    },
+    {
+      "id": "whatsapp",
+      "label": "WhatsApp",
+      "category": "app",
+      "packages": [
+        "com.whatsapp",
+        "com.whatsapp.w4b"
+      ],
+      "files": {
+        "light_png": "icons/light/png/whatsapp.png",
+        "dark_png": "icons/dark/png/whatsapp.png",
+        "light_webp": "icons/light/webp/whatsapp.webp",
+        "dark_webp": "icons/dark/webp/whatsapp.webp",
+        "svg_light": "icons/light/svg/whatsapp.svg",
+        "svg_dark": "icons/dark/svg/whatsapp.svg",
+        "adaptive_fg_light": "icons/adaptive/light/whatsapp_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/whatsapp_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/whatsapp_monochrome.png"
+      }
+    },
+    {
+      "id": "instagram",
+      "label": "Instagram",
+      "category": "app",
+      "packages": [
+        "com.instagram.android"
+      ],
+      "files": {
+        "light_png": "icons/light/png/instagram.png",
+        "dark_png": "icons/dark/png/instagram.png",
+        "light_webp": "icons/light/webp/instagram.webp",
+        "dark_webp": "icons/dark/webp/instagram.webp",
+        "svg_light": "icons/light/svg/instagram.svg",
+        "svg_dark": "icons/dark/svg/instagram.svg",
+        "adaptive_fg_light": "icons/adaptive/light/instagram_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/instagram_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/instagram_monochrome.png"
+      }
+    },
+    {
+      "id": "facebook",
+      "label": "Facebook",
+      "category": "app",
+      "packages": [
+        "com.facebook.katana",
+        "com.facebook.lite"
+      ],
+      "files": {
+        "light_png": "icons/light/png/facebook.png",
+        "dark_png": "icons/dark/png/facebook.png",
+        "light_webp": "icons/light/webp/facebook.webp",
+        "dark_webp": "icons/dark/webp/facebook.webp",
+        "svg_light": "icons/light/svg/facebook.svg",
+        "svg_dark": "icons/dark/svg/facebook.svg",
+        "adaptive_fg_light": "icons/adaptive/light/facebook_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/facebook_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/facebook_monochrome.png"
+      }
+    },
+    {
+      "id": "telegram",
+      "label": "Telegram",
+      "category": "app",
+      "packages": [
+        "org.telegram.messenger",
+        "org.telegram.messenger.web"
+      ],
+      "files": {
+        "light_png": "icons/light/png/telegram.png",
+        "dark_png": "icons/dark/png/telegram.png",
+        "light_webp": "icons/light/webp/telegram.webp",
+        "dark_webp": "icons/dark/webp/telegram.webp",
+        "svg_light": "icons/light/svg/telegram.svg",
+        "svg_dark": "icons/dark/svg/telegram.svg",
+        "adaptive_fg_light": "icons/adaptive/light/telegram_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/telegram_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/telegram_monochrome.png"
+      }
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "category": "app",
+      "packages": [
+        "com.google.android.youtube"
+      ],
+      "files": {
+        "light_png": "icons/light/png/youtube.png",
+        "dark_png": "icons/dark/png/youtube.png",
+        "light_webp": "icons/light/webp/youtube.webp",
+        "dark_webp": "icons/dark/webp/youtube.webp",
+        "svg_light": "icons/light/svg/youtube.svg",
+        "svg_dark": "icons/dark/svg/youtube.svg",
+        "adaptive_fg_light": "icons/adaptive/light/youtube_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/youtube_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/youtube_monochrome.png"
+      }
+    },
+    {
+      "id": "chrome",
+      "label": "Chrome",
+      "category": "app",
+      "packages": [
+        "com.android.chrome"
+      ],
+      "files": {
+        "light_png": "icons/light/png/chrome.png",
+        "dark_png": "icons/dark/png/chrome.png",
+        "light_webp": "icons/light/webp/chrome.webp",
+        "dark_webp": "icons/dark/webp/chrome.webp",
+        "svg_light": "icons/light/svg/chrome.svg",
+        "svg_dark": "icons/dark/svg/chrome.svg",
+        "adaptive_fg_light": "icons/adaptive/light/chrome_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/chrome_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/chrome_monochrome.png"
+      }
+    },
+    {
+      "id": "gmail",
+      "label": "Gmail",
+      "category": "app",
+      "packages": [
+        "com.google.android.gm"
+      ],
+      "files": {
+        "light_png": "icons/light/png/gmail.png",
+        "dark_png": "icons/dark/png/gmail.png",
+        "light_webp": "icons/light/webp/gmail.webp",
+        "dark_webp": "icons/dark/webp/gmail.webp",
+        "svg_light": "icons/light/svg/gmail.svg",
+        "svg_dark": "icons/dark/svg/gmail.svg",
+        "adaptive_fg_light": "icons/adaptive/light/gmail_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/gmail_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/gmail_monochrome.png"
+      }
+    },
+    {
+      "id": "google",
+      "label": "Google",
+      "category": "app",
+      "packages": [
+        "com.google.android.googlequicksearchbox"
+      ],
+      "files": {
+        "light_png": "icons/light/png/google.png",
+        "dark_png": "icons/dark/png/google.png",
+        "light_webp": "icons/light/webp/google.webp",
+        "dark_webp": "icons/dark/webp/google.webp",
+        "svg_light": "icons/light/svg/google.svg",
+        "svg_dark": "icons/dark/svg/google.svg",
+        "adaptive_fg_light": "icons/adaptive/light/google_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/google_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/google_monochrome.png"
+      }
+    },
+    {
+      "id": "maps",
+      "label": "Maps",
+      "category": "app",
+      "packages": [
+        "com.google.android.apps.maps"
+      ],
+      "files": {
+        "light_png": "icons/light/png/maps.png",
+        "dark_png": "icons/dark/png/maps.png",
+        "light_webp": "icons/light/webp/maps.webp",
+        "dark_webp": "icons/dark/webp/maps.webp",
+        "svg_light": "icons/light/svg/maps.svg",
+        "svg_dark": "icons/dark/svg/maps.svg",
+        "adaptive_fg_light": "icons/adaptive/light/maps_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/maps_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/maps_monochrome.png"
+      }
+    },
+    {
+      "id": "spotify",
+      "label": "Spotify",
+      "category": "app",
+      "packages": [
+        "com.spotify.music"
+      ],
+      "files": {
+        "light_png": "icons/light/png/spotify.png",
+        "dark_png": "icons/dark/png/spotify.png",
+        "light_webp": "icons/light/webp/spotify.webp",
+        "dark_webp": "icons/dark/webp/spotify.webp",
+        "svg_light": "icons/light/svg/spotify.svg",
+        "svg_dark": "icons/dark/svg/spotify.svg",
+        "adaptive_fg_light": "icons/adaptive/light/spotify_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/spotify_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/spotify_monochrome.png"
+      }
+    },
+    {
+      "id": "pinterest",
+      "label": "Pinterest",
+      "category": "app",
+      "packages": [
+        "com.pinterest"
+      ],
+      "files": {
+        "light_png": "icons/light/png/pinterest.png",
+        "dark_png": "icons/dark/png/pinterest.png",
+        "light_webp": "icons/light/webp/pinterest.webp",
+        "dark_webp": "icons/dark/webp/pinterest.webp",
+        "svg_light": "icons/light/svg/pinterest.svg",
+        "svg_dark": "icons/dark/svg/pinterest.svg",
+        "adaptive_fg_light": "icons/adaptive/light/pinterest_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/pinterest_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/pinterest_monochrome.png"
+      }
+    },
+    {
+      "id": "snapchat",
+      "label": "Snapchat",
+      "category": "app",
+      "packages": [
+        "com.snapchat.android"
+      ],
+      "files": {
+        "light_png": "icons/light/png/snapchat.png",
+        "dark_png": "icons/dark/png/snapchat.png",
+        "light_webp": "icons/light/webp/snapchat.webp",
+        "dark_webp": "icons/dark/webp/snapchat.webp",
+        "svg_light": "icons/light/svg/snapchat.svg",
+        "svg_dark": "icons/dark/svg/snapchat.svg",
+        "adaptive_fg_light": "icons/adaptive/light/snapchat_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/snapchat_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/snapchat_monochrome.png"
+      }
+    },
+    {
+      "id": "reddit",
+      "label": "Reddit",
+      "category": "app",
+      "packages": [
+        "com.reddit.frontpage"
+      ],
+      "files": {
+        "light_png": "icons/light/png/reddit.png",
+        "dark_png": "icons/dark/png/reddit.png",
+        "light_webp": "icons/light/webp/reddit.webp",
+        "dark_webp": "icons/dark/webp/reddit.webp",
+        "svg_light": "icons/light/svg/reddit.svg",
+        "svg_dark": "icons/dark/svg/reddit.svg",
+        "adaptive_fg_light": "icons/adaptive/light/reddit_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/reddit_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/reddit_monochrome.png"
+      }
+    },
+    {
+      "id": "discord",
+      "label": "Discord",
+      "category": "app",
+      "packages": [
+        "com.discord"
+      ],
+      "files": {
+        "light_png": "icons/light/png/discord.png",
+        "dark_png": "icons/dark/png/discord.png",
+        "light_webp": "icons/light/webp/discord.webp",
+        "dark_webp": "icons/dark/webp/discord.webp",
+        "svg_light": "icons/light/svg/discord.svg",
+        "svg_dark": "icons/dark/svg/discord.svg",
+        "adaptive_fg_light": "icons/adaptive/light/discord_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/discord_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/discord_monochrome.png"
+      }
+    },
+    {
+      "id": "chatgpt",
+      "label": "ChatGPT",
+      "category": "app",
+      "packages": [
+        "com.openai.chatgpt"
+      ],
+      "files": {
+        "light_png": "icons/light/png/chatgpt.png",
+        "dark_png": "icons/dark/png/chatgpt.png",
+        "light_webp": "icons/light/webp/chatgpt.webp",
+        "dark_webp": "icons/dark/webp/chatgpt.webp",
+        "svg_light": "icons/light/svg/chatgpt.svg",
+        "svg_dark": "icons/dark/svg/chatgpt.svg",
+        "adaptive_fg_light": "icons/adaptive/light/chatgpt_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/chatgpt_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/chatgpt_monochrome.png"
+      }
+    },
+    {
+      "id": "weather",
+      "label": "Weather",
+      "category": "additional",
+      "packages": [
+        "com.vivo.weather",
+        "com.vivo.weather.provider"
+      ],
+      "files": {
+        "light_png": "icons/light/png/weather.png",
+        "dark_png": "icons/dark/png/weather.png",
+        "light_webp": "icons/light/webp/weather.webp",
+        "dark_webp": "icons/dark/webp/weather.webp",
+        "svg_light": "icons/light/svg/weather.svg",
+        "svg_dark": "icons/dark/svg/weather.svg",
+        "adaptive_fg_light": "icons/adaptive/light/weather_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/weather_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/weather_monochrome.png"
+      }
+    },
+    {
+      "id": "notes",
+      "label": "Notes",
+      "category": "additional",
+      "packages": [
+        "com.android.notes",
+        "com.google.android.keep"
+      ],
+      "files": {
+        "light_png": "icons/light/png/notes.png",
+        "dark_png": "icons/dark/png/notes.png",
+        "light_webp": "icons/light/webp/notes.webp",
+        "dark_webp": "icons/dark/webp/notes.webp",
+        "svg_light": "icons/light/svg/notes.svg",
+        "svg_dark": "icons/dark/svg/notes.svg",
+        "adaptive_fg_light": "icons/adaptive/light/notes_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/notes_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/notes_monochrome.png"
+      }
+    },
+    {
+      "id": "shopping",
+      "label": "Shopping",
+      "category": "additional",
+      "packages": [
+        "in.amazon.mShop.android.shopping",
+        "com.flipkart.android",
+        "com.myntra.android"
+      ],
+      "files": {
+        "light_png": "icons/light/png/shopping.png",
+        "dark_png": "icons/dark/png/shopping.png",
+        "light_webp": "icons/light/webp/shopping.webp",
+        "dark_webp": "icons/dark/webp/shopping.webp",
+        "svg_light": "icons/light/svg/shopping.svg",
+        "svg_dark": "icons/dark/svg/shopping.svg",
+        "adaptive_fg_light": "icons/adaptive/light/shopping_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/shopping_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/shopping_monochrome.png"
+      }
+    },
+    {
+      "id": "banking",
+      "label": "Banking",
+      "category": "additional",
+      "packages": [
+        "com.google.android.apps.nbu.paisa.user",
+        "com.phonepe.app",
+        "net.one97.paytm"
+      ],
+      "files": {
+        "light_png": "icons/light/png/banking.png",
+        "dark_png": "icons/dark/png/banking.png",
+        "light_webp": "icons/light/webp/banking.webp",
+        "dark_webp": "icons/dark/webp/banking.webp",
+        "svg_light": "icons/light/svg/banking.svg",
+        "svg_dark": "icons/dark/svg/banking.svg",
+        "adaptive_fg_light": "icons/adaptive/light/banking_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/banking_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/banking_monochrome.png"
+      }
+    },
+    {
+      "id": "fitness",
+      "label": "Fitness",
+      "category": "additional",
+      "packages": [
+        "com.google.android.apps.fitness",
+        "com.vivo.health"
+      ],
+      "files": {
+        "light_png": "icons/light/png/fitness.png",
+        "dark_png": "icons/dark/png/fitness.png",
+        "light_webp": "icons/light/webp/fitness.webp",
+        "dark_webp": "icons/dark/webp/fitness.webp",
+        "svg_light": "icons/light/svg/fitness.svg",
+        "svg_dark": "icons/dark/svg/fitness.svg",
+        "adaptive_fg_light": "icons/adaptive/light/fitness_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/fitness_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/fitness_monochrome.png"
+      }
+    },
+    {
+      "id": "travel",
+      "label": "Travel",
+      "category": "additional",
+      "packages": [
+        "com.makemytrip",
+        "com.goibibo",
+        "com.irctc.railconnect"
+      ],
+      "files": {
+        "light_png": "icons/light/png/travel.png",
+        "dark_png": "icons/dark/png/travel.png",
+        "light_webp": "icons/light/webp/travel.webp",
+        "dark_webp": "icons/dark/webp/travel.webp",
+        "svg_light": "icons/light/svg/travel.svg",
+        "svg_dark": "icons/dark/svg/travel.svg",
+        "adaptive_fg_light": "icons/adaptive/light/travel_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/travel_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/travel_monochrome.png"
+      }
+    },
+    {
+      "id": "games",
+      "label": "Games",
+      "category": "additional",
+      "packages": [
+        "com.vivo.game"
+      ],
+      "files": {
+        "light_png": "icons/light/png/games.png",
+        "dark_png": "icons/dark/png/games.png",
+        "light_webp": "icons/light/webp/games.webp",
+        "dark_webp": "icons/dark/webp/games.webp",
+        "svg_light": "icons/light/svg/games.svg",
+        "svg_dark": "icons/dark/svg/games.svg",
+        "adaptive_fg_light": "icons/adaptive/light/games_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/games_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/games_monochrome.png"
+      }
+    },
+    {
+      "id": "food",
+      "label": "Food delivery",
+      "category": "additional",
+      "packages": [
+        "in.swiggy.android",
+        "com.application.zomato"
+      ],
+      "files": {
+        "light_png": "icons/light/png/food.png",
+        "dark_png": "icons/dark/png/food.png",
+        "light_webp": "icons/light/webp/food.webp",
+        "dark_webp": "icons/dark/webp/food.webp",
+        "svg_light": "icons/light/svg/food.svg",
+        "svg_dark": "icons/dark/svg/food.svg",
+        "adaptive_fg_light": "icons/adaptive/light/food_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/food_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/food_monochrome.png"
+      }
+    },
+    {
+      "id": "f_social",
+      "label": "Social",
+      "category": "folder",
+      "packages": [],
+      "files": {
+        "light_png": "icons/light/png/f_social.png",
+        "dark_png": "icons/dark/png/f_social.png",
+        "light_webp": "icons/light/webp/f_social.webp",
+        "dark_webp": "icons/dark/webp/f_social.webp",
+        "svg_light": "icons/light/svg/f_social.svg",
+        "svg_dark": "icons/dark/svg/f_social.svg",
+        "adaptive_fg_light": "icons/adaptive/light/f_social_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/f_social_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/f_social_monochrome.png"
+      }
+    },
+    {
+      "id": "f_entertainment",
+      "label": "Entertainment",
+      "category": "folder",
+      "packages": [],
+      "files": {
+        "light_png": "icons/light/png/f_entertainment.png",
+        "dark_png": "icons/dark/png/f_entertainment.png",
+        "light_webp": "icons/light/webp/f_entertainment.webp",
+        "dark_webp": "icons/dark/webp/f_entertainment.webp",
+        "svg_light": "icons/light/svg/f_entertainment.svg",
+        "svg_dark": "icons/dark/svg/f_entertainment.svg",
+        "adaptive_fg_light": "icons/adaptive/light/f_entertainment_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/f_entertainment_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/f_entertainment_monochrome.png"
+      }
+    },
+    {
+      "id": "f_productivity",
+      "label": "Productivity",
+      "category": "folder",
+      "packages": [],
+      "files": {
+        "light_png": "icons/light/png/f_productivity.png",
+        "dark_png": "icons/dark/png/f_productivity.png",
+        "light_webp": "icons/light/webp/f_productivity.webp",
+        "dark_webp": "icons/dark/webp/f_productivity.webp",
+        "svg_light": "icons/light/svg/f_productivity.svg",
+        "svg_dark": "icons/dark/svg/f_productivity.svg",
+        "adaptive_fg_light": "icons/adaptive/light/f_productivity_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/f_productivity_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/f_productivity_monochrome.png"
+      }
+    },
+    {
+      "id": "f_finance",
+      "label": "Finance",
+      "category": "folder",
+      "packages": [],
+      "files": {
+        "light_png": "icons/light/png/f_finance.png",
+        "dark_png": "icons/dark/png/f_finance.png",
+        "light_webp": "icons/light/webp/f_finance.webp",
+        "dark_webp": "icons/dark/webp/f_finance.webp",
+        "svg_light": "icons/light/svg/f_finance.svg",
+        "svg_dark": "icons/dark/svg/f_finance.svg",
+        "adaptive_fg_light": "icons/adaptive/light/f_finance_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/f_finance_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/f_finance_monochrome.png"
+      }
+    },
+    {
+      "id": "f_shopping",
+      "label": "Shopping",
+      "category": "folder",
+      "packages": [],
+      "files": {
+        "light_png": "icons/light/png/f_shopping.png",
+        "dark_png": "icons/dark/png/f_shopping.png",
+        "light_webp": "icons/light/webp/f_shopping.webp",
+        "dark_webp": "icons/dark/webp/f_shopping.webp",
+        "svg_light": "icons/light/svg/f_shopping.svg",
+        "svg_dark": "icons/dark/svg/f_shopping.svg",
+        "adaptive_fg_light": "icons/adaptive/light/f_shopping_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/f_shopping_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/f_shopping_monochrome.png"
+      }
+    },
+    {
+      "id": "f_photography",
+      "label": "Photography",
+      "category": "folder",
+      "packages": [],
+      "files": {
+        "light_png": "icons/light/png/f_photography.png",
+        "dark_png": "icons/dark/png/f_photography.png",
+        "light_webp": "icons/light/webp/f_photography.webp",
+        "dark_webp": "icons/dark/webp/f_photography.webp",
+        "svg_light": "icons/light/svg/f_photography.svg",
+        "svg_dark": "icons/dark/svg/f_photography.svg",
+        "adaptive_fg_light": "icons/adaptive/light/f_photography_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/f_photography_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/f_photography_monochrome.png"
+      }
+    },
+    {
+      "id": "f_travel",
+      "label": "Travel",
+      "category": "folder",
+      "packages": [],
+      "files": {
+        "light_png": "icons/light/png/f_travel.png",
+        "dark_png": "icons/dark/png/f_travel.png",
+        "light_webp": "icons/light/webp/f_travel.webp",
+        "dark_webp": "icons/dark/webp/f_travel.webp",
+        "svg_light": "icons/light/svg/f_travel.svg",
+        "svg_dark": "icons/dark/svg/f_travel.svg",
+        "adaptive_fg_light": "icons/adaptive/light/f_travel_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/f_travel_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/f_travel_monochrome.png"
+      }
+    },
+    {
+      "id": "f_games",
+      "label": "Games",
+      "category": "folder",
+      "packages": [],
+      "files": {
+        "light_png": "icons/light/png/f_games.png",
+        "dark_png": "icons/dark/png/f_games.png",
+        "light_webp": "icons/light/webp/f_games.webp",
+        "dark_webp": "icons/dark/webp/f_games.webp",
+        "svg_light": "icons/light/svg/f_games.svg",
+        "svg_dark": "icons/dark/svg/f_games.svg",
+        "adaptive_fg_light": "icons/adaptive/light/f_games_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/f_games_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/f_games_monochrome.png"
+      }
+    },
+    {
+      "id": "fallback",
+      "label": "Fallback (unmapped apps)",
+      "category": "fallback",
+      "packages": [
+        "*"
+      ],
+      "files": {
+        "light_png": "icons/light/png/fallback.png",
+        "dark_png": "icons/dark/png/fallback.png",
+        "light_webp": "icons/light/webp/fallback.webp",
+        "dark_webp": "icons/dark/webp/fallback.webp",
+        "svg_light": "icons/light/svg/fallback.svg",
+        "svg_dark": "icons/dark/svg/fallback.svg",
+        "adaptive_fg_light": "icons/adaptive/light/fallback_foreground.png",
+        "adaptive_fg_dark": "icons/adaptive/dark/fallback_foreground.png",
+        "adaptive_monochrome": "icons/adaptive/monochrome/fallback_monochrome.png"
+      }
+    }
+  ]
+}
