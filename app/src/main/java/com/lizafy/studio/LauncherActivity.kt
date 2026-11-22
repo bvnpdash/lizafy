@@ -33,12 +33,14 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -77,7 +79,9 @@ class LauncherActivity : ComponentActivity() {
             var mode by remember { mutableIntStateOf(prefs.getInt("mode", 0)) }
             val dark = when (mode) { 1 -> false; 2 -> true; else -> isSystemInDarkTheme() }
             LizafyTheme(dark) {
-                HomeRoot(tick, drawer, dark, mode, { mode = it; prefs.edit().putInt("mode", it).apply() }) { drawer = it }
+                CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onSurface) {
+                    HomeRoot(tick, drawer, dark, mode, { mode = it; prefs.edit().putInt("mode", it).apply() }) { drawer = it }
+                }
             }
         }
     }
