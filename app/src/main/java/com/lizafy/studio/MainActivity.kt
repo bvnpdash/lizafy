@@ -413,7 +413,7 @@ fun FlipCardsScreen() {
         item(span = { GridItemSpan(maxLineSpan) }) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Heading("Flip Cards")
-                Text("Save the cards, then choose 2 to 4 of them in your phone's Flip Cards setting (usually Settings, Home screen, lock screen & wallpaper, Themes). The menu names can differ on your firmware.", fontSize = 13.sp)
+                Text("Save the cards, then use them where your phone allows. Vivo OriginOS has a Flip Cards setting (Themes). On other phones, use them as lock screen or always-on display pictures.", fontSize = 13.sp)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     FilterChip(selected = !dark, onClick = { dark = false }, label = { Text("Light") })
                     FilterChip(selected = dark, onClick = { dark = true }, label = { Text("Dark") })

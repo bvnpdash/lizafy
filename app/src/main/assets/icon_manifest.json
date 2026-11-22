@@ -2,7 +2,7 @@
   "name": "LIZAFY",
   "version": "1.0.0",
   "tagline": "Your Vivo. Your Little Illustrated World.",
-  "note": "Package names for Vivo system apps are from memory and NOT verified on a V50. Check with `adb shell pm list packages` before relying on them.",
+  "note": "Package names updated from a real Samsung (One UI) app list. Vivo names are unverified.",
   "icons": [
     {
       "id": "phone",
@@ -11,7 +11,8 @@
       "packages": [
         "com.android.contacts",
         "com.google.android.dialer",
-        "com.android.dialer"
+        "com.android.dialer",
+        "com.samsung.android.dialer"
       ],
       "files": {
         "light_png": "icons/light/png/phone.png",
@@ -31,7 +32,8 @@
       "category": "system",
       "packages": [
         "com.android.contacts",
-        "com.google.android.contacts"
+        "com.google.android.contacts",
+        "com.samsung.android.app.contacts"
       ],
       "files": {
         "light_png": "icons/light/png/contacts.png",
@@ -51,7 +53,8 @@
       "category": "system",
       "packages": [
         "com.android.mms",
-        "com.google.android.apps.messaging"
+        "com.google.android.apps.messaging",
+        "com.samsung.android.messaging"
       ],
       "files": {
         "light_png": "icons/light/png/messages.png",
@@ -71,7 +74,8 @@
       "category": "system",
       "packages": [
         "com.vivo.camera",
-        "com.android.camera"
+        "com.android.camera",
+        "com.sec.android.app.camera"
       ],
       "files": {
         "light_png": "icons/light/png/camera.png",
@@ -92,7 +96,8 @@
       "packages": [
         "com.vivo.gallery",
         "com.android.gallery3d",
-        "com.google.android.apps.photos"
+        "com.google.android.apps.photos",
+        "com.sec.android.gallery3d"
       ],
       "files": {
         "light_png": "icons/light/png/gallery.png",
@@ -132,7 +137,8 @@
       "packages": [
         "com.bbk.calendar",
         "com.android.calendar",
-        "com.google.android.calendar"
+        "com.google.android.calendar",
+        "com.samsung.android.calendar"
       ],
       "files": {
         "light_png": "icons/light/png/calendar.png",
@@ -152,7 +158,8 @@
       "category": "system",
       "packages": [
         "com.android.BBKClock",
-        "com.google.android.deskclock"
+        "com.google.android.deskclock",
+        "com.sec.android.app.clockpackage"
       ],
       "files": {
         "light_png": "icons/light/png/clock.png",
@@ -172,7 +179,8 @@
       "category": "system",
       "packages": [
         "com.android.bbkcalculator",
-        "com.google.android.calculator"
+        "com.google.android.calculator",
+        "com.sec.android.app.popupcalculator"
       ],
       "files": {
         "light_png": "icons/light/png/calculator.png",
@@ -192,7 +200,8 @@
       "category": "system",
       "packages": [
         "com.android.filemanager",
-        "com.google.android.apps.nbu.files"
+        "com.google.android.apps.nbu.files",
+        "com.sec.android.app.myfiles"
       ],
       "files": {
         "light_png": "icons/light/png/files.png",
@@ -211,7 +220,8 @@
       "label": "Browser",
       "category": "system",
       "packages": [
-        "com.vivo.browser"
+        "com.vivo.browser",
+        "com.sec.android.app.sbrowser"
       ],
       "files": {
         "light_png": "icons/light/png/browser.png",
@@ -597,7 +607,8 @@
       "category": "additional",
       "packages": [
         "com.vivo.weather",
-        "com.vivo.weather.provider"
+        "com.vivo.weather.provider",
+        "com.appslab.weatherland.wallpaper"
       ],
       "files": {
         "light_png": "icons/light/png/weather.png",
@@ -617,7 +628,8 @@
       "category": "additional",
       "packages": [
         "com.android.notes",
-        "com.google.android.keep"
+        "com.google.android.keep",
+        "com.samsung.android.app.notes"
       ],
       "files": {
         "light_png": "icons/light/png/notes.png",
@@ -638,7 +650,8 @@
       "packages": [
         "in.amazon.mShop.android.shopping",
         "com.flipkart.android",
-        "com.myntra.android"
+        "com.myntra.android",
+        "com.meesho.supply"
       ],
       "files": {
         "light_png": "icons/light/png/shopping.png",
@@ -659,7 +672,8 @@
       "packages": [
         "com.google.android.apps.nbu.paisa.user",
         "com.phonepe.app",
-        "net.one97.paytm"
+        "net.one97.paytm",
+        "com.samsung.android.spay"
       ],
       "files": {
         "light_png": "icons/light/png/banking.png",
@@ -700,7 +714,9 @@
       "packages": [
         "com.makemytrip",
         "com.goibibo",
-        "com.irctc.railconnect"
+        "com.irctc.railconnect",
+        "cris.org.in.prs.ima",
+        "com.whereismytrain.android"
       ],
       "files": {
         "light_png": "icons/light/png/travel.png",
@@ -719,7 +735,9 @@
       "label": "Games",
       "category": "additional",
       "packages": [
-        "com.vivo.game"
+        "com.vivo.game",
+        "com.samsung.android.game.gamehome",
+        "com.ludo.king"
       ],
       "files": {
         "light_png": "icons/light/png/games.png",
@@ -739,7 +757,8 @@
       "category": "additional",
       "packages": [
         "in.swiggy.android",
-        "com.application.zomato"
+        "com.application.zomato",
+        "com.grofers.customerapp"
       ],
       "files": {
         "light_png": "icons/light/png/food.png",
