@@ -189,7 +189,7 @@ fun runSave(ctx: Context, scope: CoroutineScope, paths: List<String>) {
 
 // ---------- shell ----------
 enum class Tab(val label: String, val icon: String) {
-    Home("Home", "fallback"), Icons("Icons", "calendar"), Walls("Wallpapers", "gallery"),
+    Home("Home", "fallback"), Walls("Wallpapers", "gallery"),
     Cards("Flip Cards", "camera"), Moods("Moods", "weather"), Device("Device", "settings")
 }
 
@@ -214,7 +214,6 @@ fun LizafyApp() {
         Box(Modifier.fillMaxSize().padding(pad)) {
             when (tab) {
                 Tab.Home -> HomeScreen()
-                Tab.Icons -> IconsScreen()
                 Tab.Walls -> WallpapersScreen()
                 Tab.Cards -> FlipCardsScreen()
                 Tab.Moods -> MoodsScreen()
@@ -277,10 +276,13 @@ fun HomeScreen() {
             Card(Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Finish setup", fontWeight = FontWeight.SemiBold)
-                    Text("After Apply: add the doodle icons in the Icons tab, then switch dark mode to match the look.", fontSize = 13.sp)
+                    Text("Doodle icons appear in Lizafy Home, the launcher inside this app. Make it your home app, then switch dark mode to match the look.", fontSize = 13.sp)
+                    Button(onClick = {
+                        ctx.startActivity(Intent(Settings.ACTION_HOME_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    }) { Text("Choose Lizafy Home as home app") }
                     OutlinedButton(onClick = {
                         ctx.startActivity(Intent(Settings.ACTION_DISPLAY_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                    }) { Text("Open display settings") }
+                    }) { Text("Open display settings (dark mode)") }
                 }
             }
         }
@@ -288,74 +290,11 @@ fun HomeScreen() {
             Card(Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     Text("What this app can and cannot do", fontWeight = FontWeight.SemiBold)
-                    Text("It sets wallpapers directly. Flip Cards and icons are saved to Pictures/Lizafy for you to pick in the system settings. It does not change app icons, the status bar or the Origin Island. See the Device tab.", fontSize = 13.sp)
+                    Text("Wallpapers are set directly. Flip Cards are saved to Pictures/Lizafy for you to pick in OriginOS. Doodle icons show in Lizafy Home. The status bar, notification shade, Origin Island and lock screen clock stay as OriginOS draws them. See the Device tab.", fontSize = 13.sp)
                 }
             }
         }
     }
-}
-
-// ---------- Icons ----------
-@Composable
-fun IconsScreen() {
-    val ctx = LocalContext.current
-    val scope = rememberCoroutineScope()
-    var dark by remember { mutableStateOf(false) }
-    var q by remember { mutableStateOf("") }
-    var open by remember { mutableStateOf<String?>(null) }
-    val apps = remember { installedIconApps(ctx) }
-    var next by remember { mutableStateOf(0) }
-    val th = if (dark) "dark" else "light"
-    val files = remember(th) { ctx.assetList("icons/$th") }.filter { it.contains(q.trim().lowercase().replace(' ', '_')) }
-    LazyVerticalGrid(
-        GridCells.Adaptive(88.dp), Modifier.fillMaxSize(),
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
-        item(span = { GridItemSpan(maxLineSpan) }) {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Heading("Icons")
-                Card(Modifier.fillMaxWidth()) {
-                    Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text("Put doodle icons on your home screen", fontWeight = FontWeight.SemiBold)
-                        Text("${apps.size} of your installed apps have a doodle icon. Android asks you to confirm each one. Your original icons stay until you remove them.", fontSize = 12.sp)
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Button(enabled = next < apps.size, onClick = {
-                                val ok = pinIcon(ctx, apps[next], th)
-                                if (ok) next++ else toast(ctx, "Your launcher did not accept this shortcut")
-                            }) { Text(if (next < apps.size) "Add next: ${apps[next].label} (${apps.size - next} left)" else "All added", maxLines = 1) }
-                            TextButton(onClick = { next = 0 }) { Text("Start over") }
-                        }
-                        OutlinedButton(onClick = {
-                            val q = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
-                            val list = ctx.packageManager.queryIntentActivities(q, 0).joinToString("\n") {
-                                it.activityInfo.packageName + "/" + it.activityInfo.name + " | " + it.loadLabel(ctx.packageManager)
-                            }
-                            (ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
-                                .setPrimaryClip(ClipData.newPlainText("Lizafy apps", list))
-                            toast(ctx, "App list copied")
-                        }) { Text("Copy my app list (for icon pack)", fontSize = 12.sp) }
-                    }
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    FilterChip(selected = !dark, onClick = { dark = false }, label = { Text("Light") })
-                    FilterChip(selected = dark, onClick = { dark = true }, label = { Text("Dark") })
-                }
-                OutlinedTextField(q, { q = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Search icons") })
-                Text("${files.size} icons. Tap one to save it.", fontSize = 12.sp)
-            }
-        }
-        items(files) { f ->
-            Column(
-                Modifier.clip(RoundedCornerShape(12.dp)).clickable { open = "icons/$th/$f" }.padding(4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                AssetImage("icons/$th/$f", Modifier.size(72.dp), sample = 2)
-                Text(pretty(f), fontSize = 11.sp, maxLines = 1)
-            }
-        }
-    }
-    open?.let { PreviewDialog(it, wallpaper = false, onDismiss = { open = null }) }
 }
 
 // ---------- Wallpapers ----------
@@ -413,7 +352,7 @@ fun FlipCardsScreen() {
         item(span = { GridItemSpan(maxLineSpan) }) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Heading("Flip Cards")
-                Text("Save the cards, then use them where your phone allows. Vivo OriginOS has a Flip Cards setting (Themes). On other phones, use them as lock screen or always-on display pictures.", fontSize = 13.sp)
+                Text("Save the cards, then pick 2 to 4 of them in your Vivo's Flip Cards setting (Settings, then Themes or lock screen). Menu names can differ on your OriginOS version.", fontSize = 13.sp)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     FilterChip(selected = !dark, onClick = { dark = false }, label = { Text("Light") })
                     FilterChip(selected = dark, onClick = { dark = true }, label = { Text("Dark") })
@@ -497,7 +436,7 @@ fun DeviceScreen() {
         "Android" to "${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})",
         "System build" to Build.DISPLAY,
         "Screen" to "${dm.widthPixels} x ${dm.heightPixels} px, ${dm.densityDpi} dpi",
-        "Vivo device" to if (isVivo) "Yes" else "No",
+        "Built for" to if (isVivo) "Vivo OriginOS: this phone" else "Vivo OriginOS: this phone is not a Vivo, some features will not apply",
     )
     val live = listOf(
         "Set wallpaper" to (wm.isWallpaperSupported && wm.isSetWallpaperAllowed),
@@ -505,10 +444,11 @@ fun DeviceScreen() {
     )
     val partial = listOf(
         "Flip Cards: save images here, then import in system settings",
-        "Lock screen styles: wallpaper only, clock and widgets come from the system",
+        "Lock screen styles: wallpaper only, clock and widgets come from OriginOS",
+        "Doodle icons: shown in Lizafy Home, the launcher in this app",
     )
     val unsupported = listOf(
-        "Icon packs on the native launcher (no public method found for global OriginOS 6)",
+        "Icon packs on the native OriginOS launcher (use Lizafy Home instead)",
         "Status bar, notification shade, quick settings, navigation bar",
         "Origin Island and the charging screen",
         "Always-on display styling",

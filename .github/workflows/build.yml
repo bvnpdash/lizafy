@@ -13,7 +13,5 @@ jobs:
       - run: chmod +x gradlew && ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
-          name: Lizafy-apks
-          path: |
-            app/build/outputs/apk/debug/*.apk
-            iconpack/build/outputs/apk/*/debug/*.apk
+          name: Lizafy-apk
+          path: app/build/outputs/apk/debug/*.apk
