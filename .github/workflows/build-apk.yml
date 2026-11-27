@@ -2,10 +2,11 @@ name: Build APK
 
 on:
   push:
+    branches-ignore: [apk-output]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -29,3 +30,15 @@ jobs:
           name: clackwell-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+
+      - name: Publish APK to apk-output branch
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk /tmp/Clackwell-debug.apk
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git checkout --orphan apk-output
+          git rm -rf . -q
+          cp /tmp/Clackwell-debug.apk .
+          git add Clackwell-debug.apk
+          git commit -q -m "Debug APK"
+          git push -f origin apk-output
