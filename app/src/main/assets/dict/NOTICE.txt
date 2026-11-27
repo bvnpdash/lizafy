@@ -1,0 +1,10 @@
+The word lists in this folder are derived from wordfreq 3.1.1 by Robyn Speer
+(https://github.com/rspeer/wordfreq), whose data is redistributed under the
+Creative Commons Attribution-ShareAlike 4.0 licence
+(https://creativecommons.org/licenses/by-sa/4.0/). wordfreq combines several sources,
+including data from Wikipedia, OPUS OpenSubtitles (http://opus.nlpl.eu/OpenSubtitles.php),
+SUBTLEX, Google Books Ngrams and others; see the project's README for full credits.
+Changes made here: filtered to words only, truncated, and offensive words removed.
+The English list is also filtered against the SCOWL word lists by Kevin Atkinson
+(http://wordlist.aspell.net), used under SCOWL's permissive licence.
+These lists are shared under the same CC BY-SA 4.0 licence.

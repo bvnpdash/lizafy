@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Clackwell" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">#C7363C</item>
+        <item name="android:statusBarColor">#D3D5DA</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/deck</item>
+    </style>
+    <color name="deck">#D3D5DA</color>
+</resources>
