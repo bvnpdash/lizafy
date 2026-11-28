@@ -2,7 +2,10 @@ package com.zlitch.clackwell
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Paint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.LruCache
+import android.widget.ImageView
 import android.graphics.drawable.GradientDrawable
 import android.os.Handler
 import android.os.Looper
@@ -50,6 +53,27 @@ object EmojiData {
     }
 }
 
+/** Microsoft Fluent 3D emoji images (MIT) bundled in assets/emoji_img, keyed by code points without FE0F. */
+object EmojiImages {
+    private val cache = LruCache<String, Bitmap>(600)
+    fun key(emoji: String): String {
+        val sb = StringBuilder(); var i = 0
+        while (i < emoji.length) {
+            val cp = emoji.codePointAt(i); i += Character.charCount(cp)
+            if (cp == 0xFE0F) continue
+            if (sb.isNotEmpty()) sb.append('-'); sb.append(Integer.toHexString(cp))
+        }
+        return sb.toString()
+    }
+    fun get(context: Context, emoji: String): Bitmap? {
+        val k = key(emoji)
+        cache.get(k)?.let { return it }
+        return try {
+            context.assets.open("emoji_img/$k.webp").use { BitmapFactory.decodeStream(it) }?.also { cache.put(k, it) }
+        } catch (e: Exception) { null }
+    }
+}
+
 /** Shared look for the panels that replace the key deck. */
 object PanelStyle {
     fun ink(theme: KeyboardTheme) = if (theme.dark) -0x1a1d24 else theme.ink
@@ -71,8 +95,6 @@ class EmojiPanel(context: Context, private val onEmoji: (String) -> Unit, privat
                  private val onSpace: () -> Unit, private val onDelete: (Int) -> Unit) : LinearLayout(context) {
     private val prefs = Prefs(context)
     private val d = resources.displayMetrics.density
-    private val probe = Paint().also { it.typeface = Fonts.emoji(context) }
-    private val typeface = Fonts.emoji(context)
     private val categories = EmojiData.load(context)
     private var selected = if (prefs.recentEmoji.isEmpty()) 1 else 0
     private var shown: List<String> = emptyList()
@@ -88,12 +110,12 @@ class EmojiPanel(context: Context, private val onEmoji: (String) -> Unit, privat
         override fun getItem(position: Int) = shown[position]
         override fun getItemId(position: Int) = position.toLong()
         override fun getView(position: Int, convert: View?, parent: ViewGroup?): View {
-            val view = (convert as? TextView) ?: TextView(context).apply {
-                textSize = 25f; gravity = Gravity.CENTER; typeface = this@EmojiPanel.typeface
-                setTextColor(-0x1000000)
-                layoutParams = AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (42 * d).toInt())
+            val view = (convert as? ImageView) ?: ImageView(context).apply {
+                scaleType = ImageView.ScaleType.FIT_CENTER
+                val pad = (5 * d).toInt(); setPadding(pad, pad, pad, pad)
+                layoutParams = AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (44 * d).toInt())
             }
-            view.text = shown[position]
+            view.setImageBitmap(EmojiImages.get(context, shown[position]))
             return view
         }
     }
@@ -120,16 +142,17 @@ class EmojiPanel(context: Context, private val onEmoji: (String) -> Unit, privat
         setBackgroundColor(theme.bgTop)
         tabs.removeAllViews()
         categories.forEachIndexed { i, pair ->
-            val tab = TextView(context)
-            tab.text = pair.icon; tab.textSize = 18f; tab.gravity = Gravity.CENTER; tab.typeface = typeface
-            tab.setTextColor(PanelStyle.ink(theme))
+            val tab = ImageView(context)
+            tab.setImageBitmap(EmojiImages.get(context, pair.icon))
+            tab.scaleType = ImageView.ScaleType.FIT_CENTER
+            val tp = (7 * d).toInt(); tab.setPadding(tp, tp, tp, tp)
             tab.alpha = if (i == selected) 1f else 0.45f
             tab.setOnClickListener { selected = i; refresh() }
             tabs.addView(tab, LayoutParams(0, LayoutParams.MATCH_PARENT, 1f))
         }
         val tone = prefs.emojiTone
         val source = if (selected == 0) prefs.recentEmoji else categories[selected].items.map { it.pick(tone) }
-        shown = source.filter { it.isNotEmpty() && probe.hasGlyph(it) }
+        shown = source.filter { it.isNotEmpty() && EmojiImages.get(context, it) != null }
         adapter.notifyDataSetChanged()
         grid.setSelection(0)
 
@@ -140,8 +163,11 @@ class EmojiPanel(context: Context, private val onEmoji: (String) -> Unit, privat
             footer.addView(view, p)
         }
         add(PanelStyle.chip(context, "ABC", theme, 14f).apply { setOnClickListener { onBack() } }, 1.4f)
-        add(PanelStyle.chip(context, tones[prefs.emojiTone], theme, 18f).apply {
-            typeface = this@EmojiPanel.typeface
+        add(ImageView(context).apply {
+            background = PanelStyle.chip(context, "", theme, 14f).background
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            val tp = (6 * d).toInt(); setPadding(tp, tp, tp, tp)
+            setImageBitmap(EmojiImages.get(context, tones[prefs.emojiTone]))
             setOnClickListener { prefs.emojiTone = (prefs.emojiTone + 1) % 6; refresh() }
         }, 1f)
         add(PanelStyle.chip(context, "space", theme, 14f).apply { setOnClickListener { onSpace() } }, 3f)

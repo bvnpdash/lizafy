@@ -118,3 +118,4 @@ ARISING FROM, OUT OF THE USE OR INABILITY TO USE
 THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
 
 Emoji list (assets/emoji/emoji.txt) is generated from emojibase-data (MIT), Unicode CLDR/emoji data.
+Emoji pictures (assets/emoji_img) are Microsoft Fluent Emoji 3D, MIT License, Copyright (c) Microsoft Corporation.
