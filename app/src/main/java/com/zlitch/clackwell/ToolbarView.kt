@@ -55,9 +55,18 @@ class ToolbarView(context: Context, private val onTool: (Tool) -> Unit) : View(c
         paint.style = Paint.Style.FILL
         paint.color = if (theme.dark) 0x30FFFFFF else 0x24000000
         for (i in 0..2) canvas.drawRect(grid + cell * i, height * 0.40f, grid + cell * i + density, height * 0.84f, paint)
-        val labels = listOf("“" + current.literal + "”") + current.words
         paint.color = ink; paint.textAlign = Paint.Align.CENTER; paint.typeface = Typeface.DEFAULT
-        labels.forEachIndexed { i, label ->
+        current.slots.forEachIndexed { i, text ->
+            if (text.isEmpty()) return@forEachIndexed
+            if (current.isEmojiSlot(i)) {
+                val bitmap = EmojiImages.get(context, text) ?: return@forEachIndexed
+                val box = height * 0.62f
+                val cx = grid + cell * (i + 0.5f)
+                val target = android.graphics.RectF(cx - box / 2, cy - box / 2, cx + box / 2, cy + box / 2)
+                canvas.drawBitmap(bitmap, null, target, paint)
+                return@forEachIndexed
+            }
+            val label = if (i == 0) "“$text”" else text
             paint.textSize = 15f * density
             val room = cell - 12f * density
             val measured = paint.measureText(label)

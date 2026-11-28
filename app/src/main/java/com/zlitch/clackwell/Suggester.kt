@@ -2,7 +2,11 @@
 package com.zlitch.clackwell
 
 /** literal = exactly what was typed (shown in quotes); words = up to two other offers. */
-class Suggestions(val literal: String, val words: List<String>)
+class Suggestions(val literal: String, val words: List<String>, val emoji: String? = null) {
+    /** The three bar slots: what was typed, a word, then an emoji (or a second word). Empty = unused. */
+    val slots: List<String> get() = listOf(literal, words.getOrNull(0) ?: "", emoji ?: words.getOrNull(1) ?: "")
+    fun isEmojiSlot(i: Int) = emoji != null && i == 2
+}
 
 class Suggester(wordsByFrequency: List<String>, private val english: Boolean = false) {
     private val sorted: Array<String> = wordsByFrequency.toTypedArray()

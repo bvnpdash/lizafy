@@ -31,6 +31,7 @@ class ClackwellIME : InputMethodService(), KeyboardView.Listener, SharedPreferen
     private var listPanel: ListPanel? = null
     private val shift = ShiftState()
     private val dictionaries = HashMap<Language, Suggester>()
+    private val emojiWords = HashMap<Language, Map<String, String>>()
     private val loading = HashSet<Language>()
     private val main = Handler(Looper.getMainLooper())
     /** Some apps (Instagram, WebViews, Google search) report cursor changes late or never, so re-check after each edit. */
@@ -352,7 +353,13 @@ class ClackwellIME : InputMethodService(), KeyboardView.Listener, SharedPreferen
             try {
                 val words = assets.open("dict/$code.txt").bufferedReader(Charsets.UTF_8).use { it.readLines() }
                 val built = Suggester(words.filter { it.isNotEmpty() }, language == Language.ENGLISH)
-                main.post { loading.remove(language); dictionaries[language] = built; updateSuggestions() }
+                val emojis = HashMap<String, String>()
+                try {
+                    assets.open("emoji/kw_$code.txt").bufferedReader(Charsets.UTF_8).useLines { lines ->
+                        for (line in lines) { val t = line.indexOf('\t'); if (t > 0) emojis[line.substring(0, t)] = line.substring(t + 1) }
+                    }
+                } catch (e: Exception) { }
+                main.post { loading.remove(language); dictionaries[language] = built; emojiWords[language] = emojis; updateSuggestions() }
             } catch (e: Exception) {
                 main.post { loading.remove(language) }
             }
@@ -372,19 +379,29 @@ class ClackwellIME : InputMethodService(), KeyboardView.Listener, SharedPreferen
         val dictionary = dictionaries[prefs.currentLanguage]
         val word = if (page == Page.LETTERS && allowsSuggestions() && dictionary != null) wordAtCursor() else ""
         if (word == (offers?.literal ?: "") && word.isNotEmpty()) return
-        offers = if (word.isEmpty()) null else dictionary?.suggest(word)
+        offers = if (word.isEmpty()) null else dictionary?.suggest(word)?.let { base ->
+            val map = emojiWords[prefs.currentLanguage]
+            val key = TextRules.lower(word)
+            val emoji = map?.get(key) ?: if (key.length > 3 && key.endsWith("s")) map?.get(key.dropLast(1)) else null
+            if (emoji == null) base else Suggestions(base.literal, base.words, emoji)
+        }
         bar.setSuggestions(offers)
     }
 
     private fun pickSuggestion(index: Int) {
         val current = offers ?: return
         val ic = currentInputConnection ?: return
-        val choice = if (index == 0) current.literal else current.words.getOrNull(index - 1) ?: return
+        val choice = current.slots.getOrNull(index)?.takeIf { it.isNotEmpty() } ?: return
         if (wordAtCursor() != current.literal) { updateSuggestions(); return }
         feedback(Cue.EMOJI, Tap.SOFT)
         ic.beginBatchEdit()
-        ic.deleteSurroundingText(current.literal.length, 0)
-        ic.commitText("$choice ", 1)
+        if (current.isEmojiSlot(index)) {
+            // Keep the word and add the emoji after it.
+            ic.commitText(" $choice ", 1)
+        } else {
+            ic.deleteSurroundingText(current.literal.length, 0)
+            ic.commitText("$choice ", 1)
+        }
         ic.endBatchEdit()
         autoSpace = true
         offers = null
