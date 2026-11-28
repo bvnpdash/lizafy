@@ -10,7 +10,6 @@ import android.graphics.Typeface
 object Fonts {
     private var upright: Typeface? = null
     private var slanted: Typeface? = null
-    private var color: Typeface? = null
 
     fun serif(context: Context): Typeface =
         upright ?: Typeface.createFromAsset(context.assets, "fonts/NotoSerif-Regular.ttf").also { upright = it }
@@ -18,7 +17,6 @@ object Fonts {
     fun italic(context: Context): Typeface =
         slanted ?: Typeface.createFromAsset(context.assets, "fonts/NotoSerif-Italic.ttf").also { slanted = it }
 
-    /** Bundled color emoji, so the picker looks the same on every phone and has every emoji. */
-    fun emoji(context: Context): Typeface =
-        color ?: Typeface.createFromAsset(context.assets, "fonts/NotoColorEmoji.ttf").also { color = it }
+    /** Emoji use the phone's own emoji font, so a system emoji module (e.g. an iOS emoji Magisk module) shows up here too. */
+    fun emoji(@Suppress("UNUSED_PARAMETER") context: Context): Typeface = Typeface.DEFAULT
 }
